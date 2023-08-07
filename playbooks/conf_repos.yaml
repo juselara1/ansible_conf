@@ -1,0 +1,27 @@
+---
+
+- hosts: all
+  tasks:
+
+  - name: "Setup the required folders."
+    script: "../scripts/conf_repos.sh setup_folders"
+    args:
+      executable: "/usr/bin/env bash"
+
+  - name: "Cloning repositories"
+    git:
+      repo: "git@github.com:juselara1/{{ item }}"
+      dest: "~/.config/{{ item }}"
+      force: yes
+      version: "main"
+    loop: [
+      "zathura", "nvim", "shell_scripts", "starship",
+      "ipython", "rofi", "qutebrowser", "i3", "polybar",
+      "alacritty"
+      ]
+
+  - name: "Copying config files"
+    copy:
+      src: "../confs/{{ item }}"
+      dest: "~/.{{ item }}"
+    loop: ["bashrc", "tmux.conf", "inputrc", "xinitrc"]

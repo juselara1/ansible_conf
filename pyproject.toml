@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ansible_conf"
+version = "0.1.0"
+authors = [{name = "Juan Lara", email = "julara@unal.edu.co"}]
+description = "Dotfiles management with ansible"
+requires-python = ">3.8"
+dependencies = ["ansible"]
+
+[project.optional-dependencies]
+dev = ["black", "textbook-nvim", "asyncmake"]
+
+[tool.setuptools.packages.find]
+where = ["src/"]
+
+[project.scripts]
+gpttui = "gpttui.tui.main:cli"
